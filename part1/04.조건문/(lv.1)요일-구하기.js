@@ -10,7 +10,8 @@
  * @returns {string} "월", "화", ..., "일" or "Invalid"
  */
 function getDayName(dayNumber) {
-  // TODO
+  const date = ["Invalid", "월", "화", "수", "목", "금", "토", "일"];
+  return 1 > dayNumber || dayNumber > 7 ? date[0] : date[dayNumber];
 }
 
 // export 를 수정하지 마세요.
