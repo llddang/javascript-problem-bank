@@ -9,15 +9,16 @@
  * 5. 블록 외부에서 u에 접근하여 콘솔에 출력하세요. (값 2가 출력되어야 합니다.)
  */
 
+const u = 2;
 function blockScopeTest() {
   {
     // 블록 내부에 변수 선언
-    // var u = 2;
-    // let w = 1;
+    let w = 1;
+    var u = 2;
   }
   // 블록 외부에서 변수 접근
-  // console.log(u); // 2
-  // console.log(w); // ReferenceError
+  console.log(u); // 2
+  console.log(w); // ReferenceError
 }
 
 // export 를 수정하지 마세요.
