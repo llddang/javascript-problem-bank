@@ -13,15 +13,18 @@
  * @returns {void}
  */
 
-let topKeywordsCache = [];
+let topKeywordsCache = {};
 
 function updateTopKeywords(keywords) {
-  // TODO
+  topKeywordsCache = {};
+  keywords.forEach((v) => (topKeywordsCache[v] = topKeywordsCache[v] + 1 || 1));
 }
 
 function getTopKeywords() {
-  // TODO
-  return [];
+  return Object.entries(topKeywordsCache)
+    .sort((a, b) => b[0] - a[0])
+    .filter((v, idx) => idx < 10)
+    .map((v) => v[0]);
 }
 
 // export를 수정하지 마세요.

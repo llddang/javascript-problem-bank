@@ -28,7 +28,12 @@
  */
 
 // TODO: groupBy 함수를 작성하세요.
-function groupBy(arr, key) {}
+function groupBy(arr, key) {
+  return arr.reduce((acc, v) => {
+    acc[v[key]] ? acc[v[key]].push(v) : (acc[v[key]] = [v]);
+    return acc;
+  }, {});
+}
 
 // export를 수정하지 마세요.
 export { groupBy };
