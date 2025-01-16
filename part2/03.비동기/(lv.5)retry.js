@@ -10,7 +10,20 @@
  * @returns {Promise<any>}
  */
 
-function retryRequest(promiseFactory, retries) {}
+function retryRequest(promiseFactory, retries) {
+  retries++;
+  return new Promise(async (resolve, reject) => {
+    while (retries--) {
+      try {
+        const res = await promiseFactory();
+        resolve(res);
+        break;
+      } catch (e) {
+        if (retries === 0) reject(e);
+      }
+    }
+  });
+}
 
 // export 를 수정하지 마세요.
 export { retryRequest };
