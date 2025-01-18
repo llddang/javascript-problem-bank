@@ -30,7 +30,8 @@
 function createRateLimiter(maxRequests, timeWindow) {
   const requestQueue = [];
   const requestTimes = [];
-  let timeId = null;
+  let timeId = null,
+    timestamp = Date.now();
 
   return (taskFn) =>
     new Promise((resolve, reject) => {
@@ -41,7 +42,6 @@ function createRateLimiter(maxRequests, timeWindow) {
   function processQueue() {
     if (requestQueue.length === 0) return;
 
-    let timestamp = Date.now();
     while (requestTimes.length !== 0 && requestTimes[0] < timestamp)
       requestTimes.shift();
 
@@ -49,14 +49,16 @@ function createRateLimiter(maxRequests, timeWindow) {
       const { taskFn, resolve, reject } = requestQueue.shift();
       requestTimes.push(timestamp);
 
-      processQueue();
-
       const response = taskFn();
-      Promise.resolve(response).then(resolve).catch(reject);
+      Promise.resolve(response)
+        .then(resolve)
+        .catch(reject)
+        .finally(processQueue);
     } else {
       if (timeId) return;
       timeId = setTimeout(() => {
         timeId = null;
+        timestamp = Date.now();
         processQueue();
       }, timeWindow);
     }
