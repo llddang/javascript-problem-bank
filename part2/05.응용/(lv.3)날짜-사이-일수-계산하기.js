@@ -12,7 +12,9 @@
  * @returns {number}
  */
 
-function daysBetween(date1, date2) {}
+function daysBetween(date1, date2) {
+  return Math.abs((new Date(date1) - new Date(date2)) / 86400000);
+}
 
 // export 를 수정하지 마세요.
 export { daysBetween };
