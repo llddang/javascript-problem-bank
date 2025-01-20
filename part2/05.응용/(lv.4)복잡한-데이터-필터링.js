@@ -36,6 +36,21 @@
  * @returns {Array}
  */
 
-function filterComplexData(data, conditions) {}
+function createFilterFn(conditions) {
+  return function (item) {
+    for (const key in conditions) {
+      if (key === "tags" && !item.tags.includes(conditions[key])) return false;
+      if (key === "info.active" && item.info.active !== conditions[key])
+        return false;
+    }
+    return true;
+  };
+}
+
+function filterComplexData(data, conditions) {
+  const filterFn = createFilterFn(conditions);
+
+  return data.filter(filterFn);
+}
 
 export { filterComplexData };

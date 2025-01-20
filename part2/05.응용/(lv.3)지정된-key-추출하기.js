@@ -11,7 +11,14 @@
  * @returns {object}
  */
 
-function pickKeys(obj, keys) {}
+function pickKeys(obj, keys) {
+  const newObj = {};
+  keys.forEach((key) => {
+    if (!obj[key]) return;
+    newObj[key] = obj[key];
+  });
+  return newObj;
+}
 
 // export 를 수정하지 마세요.
 export { pickKeys };

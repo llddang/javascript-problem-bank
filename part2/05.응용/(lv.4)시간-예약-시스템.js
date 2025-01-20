@@ -24,7 +24,17 @@
  */
 
 // TODO: scheduleNextAvailableTime 함수를 작성하세요.
-function scheduleNextAvailableTime(reservations, timeLength) {}
+function scheduleNextAvailableTime(reservations, timeLength) {
+  for (let i = 0; i < reservations.length; i++) {
+    if (i === reservations.length - 1 && reservations[i].end + timeLength > 24)
+      return null;
+    if (i === reservations.length - 1) return reservations[i].end;
+
+    if (reservations[i + 1].start - reservations[i].end >= timeLength)
+      return reservations[i].end;
+  }
+  return 0;
+}
 
 // export 를 수정하지 마세요.
 export { scheduleNextAvailableTime };

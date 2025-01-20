@@ -12,7 +12,22 @@
  * @returns {string}
  */
 
-function normalizePath(path) {}
+function normalizePath(path) {
+  const pathStr = path.split("/").filter((item) => item !== "" && item !== ".");
+  while (true) {
+    const idx = pathStr.indexOf("..");
+    if (idx === -1) break;
+    if (idx === 0) pathStr.splice(idx, 1);
+    else pathStr.splice(idx - 1, 2);
+  }
+
+  if (pathStr.length === 0) return "/";
+  return (
+    (path.at(0) === "/" ? "/" : "") +
+    pathStr.join("/") +
+    (path.at(-1) === "/" ? "/" : "")
+  );
+}
 
 // export 를 수정하지 마세요.
 export { normalizePath };

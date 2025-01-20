@@ -22,7 +22,15 @@
  */
 
 // TODO: asyncDataMerger 함수를 작성하세요.
-async function asyncDataMerger(...asyncFunctions) {}
+async function asyncDataMerger(...asyncFunctions) {
+  const map = {};
+  await asyncFunctions.forEach(async (taskFn) => {
+    const res = await taskFn();
+    res.forEach((item) => (map[item.id] = { ...map[item.id], ...item }));
+  });
+
+  return Object.values(map).sort((a, b) => a.id - b.id);
+}
 
 // export를 수정하지 마세요.
 export { asyncDataMerger };

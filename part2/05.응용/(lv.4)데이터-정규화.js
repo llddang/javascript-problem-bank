@@ -28,7 +28,17 @@
  */
 
 // TODO: normalizeData 함수를 작성하세요.
-function normalizeData(data) {}
+function normalizeData(data) {
+  const byId = {};
+  const allIds = [];
+
+  data.forEach((item) => {
+    byId[item.id] = item;
+    allIds.push(item.id);
+  });
+
+  return { byId, allIds };
+}
 
 // export를 수정하지 마세요.
 export { normalizeData };

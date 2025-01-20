@@ -10,6 +10,20 @@
  * @returns {object}
  */
 
-function parseQueryString(queryString) {}
+function parseQueryString(queryString) {
+  if (!queryString) return {};
+
+  const map = queryString
+    .substring(1)
+    .split("&")
+    .map((item) => item.split("="));
+
+  const obj = {};
+  map.forEach(([key, value]) => {
+    if (!key) return;
+    obj[key] = value || "";
+  });
+  return obj;
+}
 
 export { parseQueryString };
